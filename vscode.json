@@ -1,0 +1,22 @@
+{
+    "editor.fontSize": 24,
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": true,
+    "editor.detectIndentation": false,
+    "emmet.syntaxProfiles": {
+        "javascript": "jsx"
+    },
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.idea": true,
+        "**/.vscode": true,
+        "**/.DS_Store": true
+    },
+    "workbench.colorTheme": "Monokai"
+}
