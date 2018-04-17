@@ -6,6 +6,8 @@
 import React, { Component } from 'react';
 import { Button, Table, Divider, Modal } from 'antd';
 import AppInfo from "./AppInfo";
+import { connect } from 'react-redux';
+import { delete_Data } from './redux/action';
 
 class AppContent1 extends Component {
     constructor(props) {
@@ -110,6 +112,7 @@ class AppContent1 extends Component {
     //删除行
     deleteLine = () => {
         let selected = this.state.selectedRowKeys.length > 0;
+        const { dispatch } = this.props;
         if (selected) {
             Modal.confirm({
                 title: '提示',
@@ -118,12 +121,13 @@ class AppContent1 extends Component {
                     let select = this.state.selectedRowKeys;
                     let data = this.state.data;
                     select.forEach((selectItem) => {
-                        let index = data.findIndex((item) => {
+                        /* let index = data.findIndex((item) => {
                             return item.key === selectItem;
                         });
-                        data.splice(index, 1);
+                        data.splice(index, 1); */
+                        dispatch(delete_Data(selectItem))
                     });
-                    this.setState({ data, selectedRowKeys: [] });
+                    // this.setState({ data, selectedRowKeys: [] });
                 },
                 onCancel: () => { },
             });
@@ -185,4 +189,4 @@ class AppContent1 extends Component {
     }
 }
 
-export default AppContent1;
+export default connect()(AppContent1);
