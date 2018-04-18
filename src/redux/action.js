@@ -1,4 +1,11 @@
 export const delete_Data = keys => ({
     type: 'delete',
-    keys: keys,
+    keys,
+})
+export const request_Data = () => ({
+    type: 'request',
+})
+export const change_Select = (selected) => ({
+    type: 'select',
+    selected,
 })

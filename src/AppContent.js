@@ -10,8 +10,8 @@ import AppContent2 from "./AppContent2";
 import AppContent3 from "./AppContent3";
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import reducers from './redux/reducers';
-const store = createStore(reducers);
+import tableData from './redux/reducers';
+const store = createStore(tableData);
 
 const routes = [
     {
@@ -34,7 +34,6 @@ class AppContent extends Component {
         return (
             <Provider store={store}>
                 <div className={'content-bg'}>
-
                     {
                         routes.map((route, index) => (
                             <Route
@@ -45,7 +44,6 @@ class AppContent extends Component {
                             />
                         ))
                     }
-
                 </div>
             </Provider>
         );
