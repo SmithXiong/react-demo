@@ -5,9 +5,10 @@
  */
 import React, { Component } from 'react';
 import { Button, Table, Divider, Modal, Spin } from 'antd';
-import AppInfo from "./AppInfo";
+import PropTypes from 'prop-types';
+import AppInfo from "./AppInfo2";
 import { connect } from 'react-redux';
-import { delete_Data, request_Data, change_Select } from './redux/action';
+import { delete_Data, add_Data, change_Select } from './redux/action';
 
 
 
@@ -60,69 +61,87 @@ const columns = [{
     )
 }];
 
-//删除行
-const deleteLine = () => {
-    let selected = tableData.selectedRowKeys.length > 0;
-    if (selected) {
-        Modal.confirm({
-            title: '提示',
-            content: '确认要删除吗?',
-            onOk: () => {
-                let select = tableData.selectedRowKeys;
-                select.forEach((selectItem) => {
-                    /* let index = data.findIndex((item) => {
-                        return item.key === selectItem;
+
+
+const AppContent2 = ({ tableData, add_Data, delete_Data, change_Select }) => {
+    //删除行
+    const deleteLine = () => {
+        let selected = tableData.selectedRowKeys.length > 0;
+        if (selected) {
+            Modal.confirm({
+                title: '提示',
+                content: '确认要删除吗?',
+                onOk: () => {
+                    let select = tableData.selectedRowKeys;
+                    select.forEach((selectItem) => {
+                        /* let index = data.findIndex((item) => {
+                            return item.key === selectItem;
+                        });
+                        data.splice(index, 1); */
+                        delete_Data(selectItem)
                     });
-                    data.splice(index, 1); */
-                    delete_Data(selectItem)
-                });
-                // this.setState({ data, selectedRowKeys: [] });
-            },
-            onCancel: () => { },
-        });
-    } else {
-        Modal.warning({
-            title: '警告',
-            content: '请选择删除的数据！',
-        });
+                    // this.setState({ data, selectedRowKeys: [] });
+                },
+                onCancel: () => { },
+            });
+        } else {
+            Modal.warning({
+                title: '警告',
+                content: '请选择删除的数据！',
+            });
+        }
     }
-};
 
-//表格选择
-const onSelectChange = (selectedRowKeys) => {
-    change_Select(selectedRowKeys);
-};
-
-const rowSelection = {
-    selectedRowKeys: tableData.selectedRowKeys,
-    onChange: onSelectChange
-};
-
-const AppContent2 = ({ tableData, delete_Data, change_Select }) => (
-    <div>
+    //表格选择
+    const rowSelection = {
+        selectedRowKeys: tableData.selectedRowKeys,
+        onChange: (selectedRowKeys) => {
+            change_Select(selectedRowKeys);
+        }
+    }
+    return (
         <div>
-            {/* <Button type={'primary'} onClick={this.addLine} icon={'plus'}>新增</Button> */}
-            <Button type={'danger'} onClick={deleteLine(tableData)} icon={'delete'}
-                style={{ marginLeft: '10px' }}>删除</Button>
+            <AppInfo
+                visible={tableData.visible}
+                action={tableData.action}
+                colData={tableData.colData}
+                onOK={(item) => {
+                    /* let data = this.state.data;
+                    if (item.action === 'new') {
+                        data.push({ ...item, 'key': (this.state.data.length + 1).toString() });
+                    } else {
+                        let index = data.findIndex((o) => {
+                            return o.key === item.key;
+                        });
+                        data[index] = item;
+                    }
+                    this.setState({ data, visible: false, colData: null }); */
+                }}
+                onCancel={() => {
+                    /* this.setState({
+                        visible: false,
+                        colData: null
+                    }) */
+                }} />
+            <div>
+                <Button type={'primary'} onClick={add_Data} icon={'plus'}>新增</Button>
+                <Button type={'danger'} onClick={() => deleteLine()} icon={'delete'}
+                    style={{ marginLeft: '10px' }}>删除</Button>
+            </div>
+            <Divider />
+            <div>
+                <Table dataSource={tableData.data} rowSelection={rowSelection} columns={columns} bordered />
+            </div>
         </div>
-        <Divider />
-        <div>
-            <Spin spinning={tableData.loading}>
-                <Table dataSource={tableData.data} rowSelection={{
-                    selectedRowKeys: tableData.selectedRowKeys,
-                    onChange: onSelectChange
-                }} columns={this.columns} bordered />
-            </Spin>
-        </div>
-    </div>
-)
+    )
+}
 
 const mapStateToProps = state => ({
-    tableData: state
+    tableData: state.tableData
 })
 
 const mapDispatchToProps = dispatch => ({
-    request_Data: () => dispatch(request_Data()),
+    add_Data: () => dispatch(add_Data()),
     delete_Data: id => dispatch(delete_Data(id)),
     change_Select: selected => dispatch(change_Select(selected)),
 })

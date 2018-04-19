@@ -10,8 +10,8 @@ import AppContent2 from "./AppContent2";
 import AppContent3 from "./AppContent3";
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import tableData from './redux/reducers';
-const store = createStore(tableData);
+import reducer from './redux/reducers';
+const store = createStore(reducer);
 
 const routes = [
     {
