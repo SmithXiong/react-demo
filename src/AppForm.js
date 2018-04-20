@@ -3,8 +3,8 @@
  * 2018-04-12
  * 作者：Lenovo
  */
-import React, {Component} from 'react';
-import {Form,Input,InputNumber,DatePicker,AutoComplete,Radio} from 'antd';
+import React, { Component } from 'react';
+import { Form, Input, InputNumber, DatePicker, AutoComplete, Radio } from 'antd';
 import moment from 'moment';
 
 const FormItem = Form.Item;
@@ -64,7 +64,7 @@ const AppForm = Form.create({
                 return <Option key={email}>{email}</Option>;
             });
             return (
-                <Form disabled>
+                <Form>
                     <FormItem
                         label="姓名"
                         {...formItemLayout}
@@ -73,14 +73,14 @@ const AppForm = Form.create({
                         {getFieldDecorator('name', {
                             rules: [{ required: true, message: '请输入姓名!' }],
                         })(
-                            <Input disabled={!this.props.editable}/>
+                            <Input disabled={!this.props.editable} />
                         )}
                     </FormItem>
                     <FormItem
                         label="性别"
                         {...formItemLayout}
                     >
-                        {getFieldDecorator('sex', { initialValue:'0'})(
+                        {getFieldDecorator('sex', { initialValue: '0' })(
                             <RadioGroup disabled={!this.props.editable}>
                                 <Radio value="0">男</Radio>
                                 <Radio value="1">女</Radio>
@@ -95,7 +95,7 @@ const AppForm = Form.create({
                         {getFieldDecorator('age', {
                             rules: [{ required: true, message: '请输入年龄!' }],
                         })(
-                            <InputNumber min={1} disabled={!this.props.editable}/>
+                            <InputNumber min={1} disabled={!this.props.editable} />
                         )}
                     </FormItem>
                     <FormItem
@@ -106,7 +106,7 @@ const AppForm = Form.create({
                         {getFieldDecorator('address', {
                             rules: [{ required: true, message: '请输入地址!' }],
                         })(
-                            <Input disabled={!this.props.editable}/>
+                            <Input disabled={!this.props.editable} />
                         )}
                     </FormItem>
                     <FormItem
@@ -115,9 +115,9 @@ const AppForm = Form.create({
                         hasFeedback
                     >
                         {getFieldDecorator('birthday', {
-                            rules: [{required: true, message: '请选择出生日期!' }],
+                            rules: [{ required: true, message: '请选择出生日期!' }],
                         })(
-                            <DatePicker disabled={!this.props.editable}/>
+                            <DatePicker disabled={!this.props.editable} />
                         )}
                     </FormItem>
                     <FormItem
@@ -129,7 +129,7 @@ const AppForm = Form.create({
                             rules: [{ required: true, message: '请输入邮箱地址!' }],
                         })(
                             <AutoComplete onSearch={this.handleSearch}
-                                          disabled={!this.props.editable}>
+                                disabled={!this.props.editable}>
                                 {children}
                             </AutoComplete>
                         )}
