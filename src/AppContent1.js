@@ -119,7 +119,6 @@ class AppContent1 extends Component {
                 content: '确认要删除吗?',
                 onOk: () => {
                     let select = this.state.selectedRowKeys;
-                    let data = this.state.data;
                     select.forEach((selectItem) => {
                         /* let index = data.findIndex((item) => {
                             return item.key === selectItem;

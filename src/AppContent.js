@@ -4,7 +4,7 @@
  * 作者：Lenovo
  */
 import React, { Component } from 'react';
-import { Route, Router } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import AppContent1 from "./AppContent1";
 import AppContent2 from "./AppContent2";
 import AppContent3 from "./AppContent3";

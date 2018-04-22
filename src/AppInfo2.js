@@ -3,22 +3,21 @@
  * 2018-04-12
  * 作者：Lenovo
  */
-import React, { Component } from 'react';
-import { Modal, Form, Input, InputNumber, DatePicker, AutoComplete, Radio } from 'antd';
+import React from 'react';
+import { Button, Modal, Form, Input, InputNumber, DatePicker, Radio } from 'antd';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { hideModal, add_Data } from './redux/action';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
-const Option = AutoComplete.Option;
 
 const dateFormat = 'YYYY-MM-DD';
 
 const AppInfo = ({
     tableData,
     hideModal,
-    handleSearch,
+    add_Data,
     form: {
         getFieldDecorator,
         validateFields,
@@ -42,20 +41,21 @@ const AppInfo = ({
     const modalOpts = {
         title: tableData.action === 'new' ? '新增' : tableData.action === 'edit' ? '修改' : '查看',
         visible: tableData.visible,
-        okText: '确定',
-        cancelText: '取消',
         onCancel: hideModal,
         onOk: handleOk,
         destroyOnClose: true,
+        footer: tableData.action === 'read' ? null : [
+            <Button key="back" onClick={hideModal}>Return</Button>,
+            <Button key="submit" type="primary" onClick={handleOk}>
+                Submit
+            </Button>,
+        ]
     }
 
     const formItemLayout = {
         labelCol: { span: 6 },
         wrapperCol: { span: 14 },
     };
-    const children = tableData.result.map((email) => {
-        return <Option key={email}>{email}</Option>;
-    });
 
     return (
         <div>

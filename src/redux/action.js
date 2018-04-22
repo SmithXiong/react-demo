@@ -16,3 +16,15 @@ export const add_Data = (value) => ({
     type: 'add_Data',
     value,
 })
+export const edit_Data = (value) => ({
+    type: 'edit_Data',
+    value,
+})
+export const read_Data = (value) => ({
+    type: 'read_Data',
+    value,
+})
+/* export const handleSearch = (value) => ({
+    type: 'handleSearch',
+    value,
+}) */

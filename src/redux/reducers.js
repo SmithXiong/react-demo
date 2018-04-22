@@ -1,10 +1,9 @@
-import { combineReducers } from 'redux'
+// import { combineReducers } from 'redux'
 
 const initialState = {
     action: null,
     visible: false,
     selectedRowKeys: [],
-    formData: {},
     currentForm: {},
     result: [],
     data: [{
@@ -62,13 +61,17 @@ const tableData = (state = initialState, action) => {
                 });
                 data[index] = action.value;
             }
-            return { ...state, data, visible: false }
+            return { ...state, data, visible: false, currentForm: {} }
+        case 'edit_Data':
+            return { ...state, visible: true, currentForm: { ...action.value }, action: 'edit' }
+        case 'read_Data':
+            return { ...state, visible: true, currentForm: { ...action.value }, action: 'read' }
         default:
             return state
     }
 }
 
-const formData = (state = initialState.formData, action) => {
+/* const formData = (state = { result: [] }, action) => {
     switch (action.type) {
         case 'handleSearch':
             let result;
@@ -81,6 +84,6 @@ const formData = (state = initialState.formData, action) => {
         default:
             return state
     }
-}
+} */
 
 export default tableData
